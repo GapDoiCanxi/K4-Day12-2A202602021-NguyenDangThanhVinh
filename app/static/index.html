@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#f5f7fb" />
+    <meta
+      name="description"
+      content="Giao diện trò chuyện cho Day 12 Chat Service"
+    />
+    <title>Day 12 Chat</title>
+    <link rel="stylesheet" href="/static/styles.css" />
+    <script src="/static/app.js" defer></script>
+  </head>
+  <body>
+    <main class="app-shell">
+      <header class="topbar">
+        <a class="brand" href="/" aria-label="Day 12 Chat - Trang chủ">
+          <span class="brand-mark" aria-hidden="true">D12</span>
+          <span>
+            <strong>Day 12 Chat</strong>
+            <small>Services &amp; Deployment</small>
+          </span>
+        </a>
+
+        <div class="service-status" aria-live="polite">
+          <span id="statusDot" class="status-dot checking"></span>
+          <span id="statusText">Đang kiểm tra dịch vụ…</span>
+          <button id="refreshStatus" class="icon-button" type="button" aria-label="Kiểm tra lại trạng thái" title="Kiểm tra lại">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M20 6v5h-5M4 18v-5h5M18.1 9A7 7 0 0 0 6.4 6.4L4 9m16 6-2.4 2.6A7 7 0 0 1 5.9 15" />
+            </svg>
+          </button>
+        </div>
+      </header>
+
+      <section class="workspace" aria-label="Ứng dụng chat">
+        <aside class="settings-card">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">Kết nối</p>
+              <h1>Cấu hình API</h1>
+            </div>
+            <button id="toggleSettings" class="mobile-toggle" type="button" aria-expanded="false" aria-controls="settingsBody">
+              Thiết lập
+            </button>
+          </div>
+
+          <div id="settingsBody" class="settings-body">
+            <label class="field" for="apiToken">
+              <span>API token <em>Bắt buộc</em></span>
+              <span class="input-wrap">
+                <input id="apiToken" type="password" autocomplete="off" placeholder="Nhập API_TOKEN" spellcheck="false" />
+                <button id="toggleToken" class="reveal-button" type="button" aria-label="Hiện token">Hiện</button>
+              </span>
+            </label>
+            <p class="field-help">Token chỉ được giữ trong tab này và không lưu trên trình duyệt.</p>
+
+            <label class="field" for="clientId">
+              <span>Client ID <em>Tùy chọn</em></span>
+              <input id="clientId" type="text" maxlength="64" autocomplete="off" placeholder="vd: sv-202602021" spellcheck="false" />
+            </label>
+            <p class="field-help">Dùng để tách lịch sử, rate limit và ngân sách.</p>
+
+            <div class="probe-grid">
+              <div class="probe-item">
+                <span>Ứng dụng</span>
+                <strong id="healthValue">Đang kiểm tra</strong>
+              </div>
+              <div class="probe-item">
+                <span>Redis</span>
+                <strong id="readyValue">Đang kiểm tra</strong>
+              </div>
+            </div>
+
+            <a class="docs-link" href="/docs" target="_blank" rel="noreferrer">
+              Mở API Docs
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 5h5v5M13 11l6-6M19 13v6H5V5h6" /></svg>
+            </a>
+          </div>
+        </aside>
+
+        <section class="chat-card">
+          <div class="chat-heading">
+            <div>
+              <p class="eyebrow">Trợ lý</p>
+              <h2>Cuộc trò chuyện</h2>
+            </div>
+            <button id="clearChat" class="text-button" type="button">Xóa màn hình</button>
+          </div>
+
+          <div id="messages" class="messages" role="log" aria-live="polite" aria-relevant="additions">
+            <article class="message assistant-message">
+              <div class="avatar" aria-hidden="true">AI</div>
+              <div class="message-content">
+                <div class="message-meta"><strong>Day 12 Assistant</strong><span>Vừa xong</span></div>
+                <p>Xin chào! Nhập API token, sau đó gửi tin nhắn để kiểm tra chat service của bạn.</p>
+              </div>
+            </article>
+          </div>
+
+          <form id="chatForm" class="composer">
+            <label class="sr-only" for="messageInput">Tin nhắn</label>
+            <textarea id="messageInput" rows="1" maxlength="2000" placeholder="Nhập tin nhắn…" required></textarea>
+            <div class="composer-footer">
+              <span class="composer-hint"><kbd>Enter</kbd> gửi · <kbd>Shift</kbd> + <kbd>Enter</kbd> xuống dòng</span>
+              <span id="charCount" class="char-count">0/2000</span>
+              <button id="sendButton" class="send-button" type="submit">
+                <span>Gửi</span>
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m4 4 17 8-17 8 3-8-3-8Zm3 8h14" /></svg>
+              </button>
+            </div>
+          </form>
+        </section>
+      </section>
+    </main>
+
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  </body>
+</html>
