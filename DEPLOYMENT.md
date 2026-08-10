@@ -17,7 +17,7 @@
 | Runtime | Docker |
 | Region | Oregon |
 | Ngày deploy | 2026-08-10 |
-| Deploy commit | `06acec502f4162f3592ca17a04bf03d5fb0caf2c` |
+| Application code commit | `026f5e09746468ba1f3e7a0876316ecacbcbcb69` |
 | Trạng thái | Live |
 
 ## Biến Môi Trường Đã Set Trên Cloud
